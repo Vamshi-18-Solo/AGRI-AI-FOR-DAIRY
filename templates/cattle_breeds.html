@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Indian Cattle Breeds{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Indian Cattle Breeds</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for breed in [
+            ('gir', 'Gir', 'Native to Gujarat, known for high milk yield and heat resistance.'),
+            ('sahiwal', 'Sahiwal', 'Originally from Punjab, famous for high-fat milk content.'),
+            ('red_sindhi', 'Red Sindhi', 'From Sindh region, deep red color and good milk producer.'),
+            ('rathi', 'Rathi', 'From Rajasthan, well suited for arid regions with good milk fat content.'),
+            ('tharparkar', 'Tharparkar', 'From Rajasthan, known for disease resistance and good milk production.'),
+            ('hariana', 'Hariana', 'From Haryana, dual-purpose breed with good draught power.'),
+            ('ongole', 'Ongole', 'From Andhra Pradesh, large muscular build and excellent draught animal.'),
+            ('kankrej', 'Kankrej', 'From Gujarat, suitable for both milk and draught with distinctive horns.'),
+            ('deoni', 'Deoni', 'From Maharashtra, hardy breed with black and white coloring.'),
+            ('hallikar', 'Hallikar', 'From Karnataka, excellent draught breed with compact body.'),
+            ('kangayam', 'Kangayam', 'From Tamil Nadu, strong draught animal with gray-white coloring.'),
+            ('amrit_mahal', 'Amrit Mahal', 'From Karnataka, fast moving and good load carrier.')
+        ] %}
+        <div class="col">
+            <div class="card h-100 breed-card">
+                <div class="img-wrapper">
+                    <img src="{{ url_for('static', filename='breeds/' + breed[0] + '1.jpg') }}" 
+                         class="card-img-top breed-card-img" 
+                         alt="{{ breed[1] }} Cow">
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ breed[1] }}</h5>
+                    <p class="card-text flex-grow-1">{{ breed[2] }}</p>
+                    <a href="{{ url_for('breed_details', breed=breed[0]) }}" class="btn btn-primary mt-auto">Know More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.breed-card {
+    border: 1px solid rgba(0,0,0,0.125);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.breed-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.img-wrapper {
+    position: relative;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+    overflow: hidden;
+}
+
+.breed-card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #f8f9fa;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.btn-primary {
+    width: 100%;
+}
+</style>
+{% endblock %}
+
+
+

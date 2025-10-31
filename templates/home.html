@@ -1,0 +1,321 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to Dairy Management System</h1>
+    <p class="lead">Connect with dairy businesses, explore products, and join our community</p>
+    <hr class="my-4">
+    {% if not current_user.is_authenticated %}
+    <p>Get started by creating your free account</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}" role="button">Register Now</a>
+        <a class="btn btn-secondary btn-lg" href="{{ url_for('login') }}" role="button">Login</a>
+    </p>
+    {% endif %}
+</div>
+
+<div class="container mt-5">
+    <!-- Featured Franchises -->
+    <div class="section-header mb-4">
+        <h2 class="text-primary">Featured Franchises</h2>
+        <p class="text-muted">Discover top dairy franchise opportunities</p>
+    </div>
+    <div class="row">
+        <!-- Sample Static Franchises -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm hover-shadow franchise-card">
+                <img src="{{ url_for('static', filename='franchises/download.jpeg') }}" 
+                     class="card-img-top" alt="Amul Franchise"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title text-primary mb-0">Amul Dairy Franchise</h5>
+                        <span class="badge bg-success">Featured</span>
+                    </div>
+                    <p class="card-text text-muted mb-3">Premium Amul franchise opportunity with established brand presence and comprehensive support system.</p>
+                    <div class="franchise-details mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                            <small>Mumbai, Delhi, Bangalore</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-rupee-sign text-secondary me-2"></i>
+                            <small>Investment: ₹5,00,000 - ₹10,00,000</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="owner-info">
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>
+                                Amul Official
+                            </small>
+                        </div>
+                        <a href="{{ url_for('search_franchises') }}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm hover-shadow franchise-card">
+                <img src="{{ url_for('static', filename='franchises/download (1).jpeg') }}" 
+                     class="card-img-top" alt="Mother Dairy Franchise"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title text-primary mb-0">Mother Dairy Outlet</h5>
+                        <span class="badge bg-success">Featured</span>
+                    </div>
+                    <p class="card-text text-muted mb-3">Start your own Mother Dairy franchise with complete business support and training.</p>
+                    <div class="franchise-details mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                            <small>Delhi NCR, UP, Haryana</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-rupee-sign text-secondary me-2"></i>
+                            <small>Investment: ₹4,00,000 - ₹8,00,000</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="owner-info">
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>
+                                Mother Dairy Corp
+                            </small>
+                        </div>
+                        <a href="{{ url_for('search_franchises') }}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm hover-shadow franchise-card">
+                <img src="{{ url_for('static', filename='franchises/download (2).jpeg') }}" 
+                     class="card-img-top" alt="Local Dairy Franchise"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title text-primary mb-0">Pure Dairy Express</h5>
+                        <span class="badge bg-success">Featured</span>
+                    </div>
+                    <p class="card-text text-muted mb-3">Modern dairy franchise opportunity with focus on organic and premium dairy products.</p>
+                    <div class="franchise-details mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                            <small>Pune, Hyderabad, Chennai</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-rupee-sign text-secondary me-2"></i>
+                            <small>Investment: ₹3,50,000 - ₹7,00,000</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="owner-info">
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>
+                                Pure Dairy Ltd
+                            </small>
+                        </div>
+                        <a href="{{ url_for('search_franchises') }}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Franchises from Database -->
+        {% if current_user.is_authenticated and current_user.owned_franchises %}
+            <div class="col-12">
+                <h3 class="mt-4 mb-3">Your Franchises</h3>
+            </div>
+            {% for franchise in current_user.owned_franchises %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm hover-shadow franchise-card">
+                    <img src="{{ url_for('static', filename='franchises/' + franchise.brand_image) }}" 
+                         class="card-img-top" alt="{{ franchise.name }}"
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title text-primary mb-0">{{ franchise.name }}</h5>
+                            <span class="badge bg-primary">Owner</span>
+                        </div>
+                        <p class="card-text text-muted mb-3">{{ franchise.description[:150] }}{% if franchise.description|length > 150 %}...{% endif %}</p>
+                        <div class="franchise-details mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                <small>{{ franchise.locations }}</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-rupee-sign text-secondary me-2"></i>
+                                <small>Investment: ₹{{ "{:,.2f}".format(franchise.min_investment) }} - ₹{{ "{:,.2f}".format(franchise.max_investment) }}</small>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="owner-info">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>
+                                    {{ franchise.owner.username }}
+                                </small>
+                            </div>
+                            <a href="{{ url_for('view_franchise', franchise_id=franchise.id) }}" class="btn btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if franchises %}
+            <div class="col-12">
+                <h3 class="mt-4 mb-3">Available Franchises</h3>
+            </div>
+            {% for franchise in franchises %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm hover-shadow franchise-card">
+                    <img src="{{ url_for('static', filename='franchises/' + franchise.brand_image) }}" 
+                         class="card-img-top" alt="{{ franchise.name }}"
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title text-primary mb-0">{{ franchise.name }}</h5>
+                            <span class="badge bg-success">Featured</span>
+                        </div>
+                        <p class="card-text text-muted mb-3">{{ franchise.description[:150] }}{% if franchise.description|length > 150 %}...{% endif %}</p>
+                        <div class="franchise-details mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                <small>{{ franchise.locations }}</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-rupee-sign text-secondary me-2"></i>
+                                <small>Investment: ₹{{ "{:,.2f}".format(franchise.min_investment) }} - ₹{{ "{:,.2f}".format(franchise.max_investment) }}</small>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="owner-info">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>
+                                    {{ franchise.owner.username }}
+                                </small>
+                            </div>
+                            <a href="{{ url_for('view_franchise', franchise_id=franchise.id) }}" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Latest Discussions -->
+    <h2 class="mb-4 mt-5">Latest Community Discussions</h2>
+    <div class="row">
+        {% for topic in forum_topics %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ topic.title }}</h5>
+                    <p class="card-text">{{ topic.description[:100] }}...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">{{ topic.created_at.strftime('%Y-%m-%d') }}</small>
+                        <a href="{{ url_for('view_topic', topic_id=topic.id) }}" class="btn btn-outline-primary">Join Discussion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Features Section -->
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+                    <h5 class="card-title">Explore Franchises</h5>
+                    <p class="card-text">Browse and connect with dairy franchises in your area. Find investment opportunities that match your goals.</p>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('search_franchises') }}" class="btn btn-primary">Browse Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-comments fa-3x mb-3 text-primary"></i>
+                    <h5 class="card-title">Join Discussions</h5>
+                    <p class="card-text">Participate in our community forum. Share experiences, ask questions, and connect with others.</p>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('search_forum') }}" class="btn btn-primary">View Forum</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-headset fa-3x mb-3 text-primary"></i>
+                    <h5 class="card-title">Get Support</h5>
+                    <p class="card-text">Need help? Our support team is here to assist you. Check our FAQs or create a support ticket.</p>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('support') }}" class="btn btn-primary">Get Help</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Getting Started Section -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Getting Started</h2>
+                    <div class="accordion" id="startingSteps">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#step1">
+                                    Step 1: Create Your Account
+                                </button>
+                            </h2>
+                            <div id="step1" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    Register for a free account to access all features and join our community.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#step2">
+                                    Step 2: Explore Franchises
+                                </button>
+                            </h2>
+                            <div id="step2" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    Browse available franchises, view details, and submit inquiries for opportunities that interest you.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#step3">
+                                    Step 3: Join the Community
+                                </button>
+                            </h2>
+                            <div id="step3" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    Participate in discussions, share your experiences, and connect with other members.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

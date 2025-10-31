@@ -1,0 +1,481 @@
+{% extends "base.html" %}
+
+{% block title %}Support & Community{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1>Support & Community</h1>
+            <p class="lead">Get help from our support team and connect with other dairy owners</p>
+        </div>
+        <!-- <div class="col-md-4 text-end">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTicketModal">
+                <i class="fas fa-plus"></i> New Support Ticket
+            </button>
+        </div> -->
+    </div>
+
+    <div class="row">
+        <!-- Support Tickets Section -->
+        <div class="col-md-8">
+            <!-- <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">My Support Tickets</h3>
+                </div>
+                <div class="card-body">
+                    {% if tickets %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in tickets %}
+                                <tr>
+                                    <td>#{{ ticket.id }}</td>
+                                    <td>{{ ticket.subject }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if ticket.status == 'resolved' else 'warning' if ticket.status == 'in_progress' else 'info' }}">
+                                            {{ ticket.status|title }}
+                                        </span>
+                                    </td>
+                                    <td>{{ ticket.created_at.strftime('%Y-%m-%d') }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewTicket('{{ ticket.id }}')">View</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <p>No support tickets yet.</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTicketModal">
+                            Create Your First Ticket
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div> -->
+
+            <!-- Community Forum Section -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Community Forum</h3>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTopicModal">
+                        <i class="fas fa-plus"></i> Start a Discussion
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for topic in forum_topics %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ topic.title }}</h5>
+                                <small>{{ topic.created_at.strftime('%Y-%m-%d') }}</small>
+                            </div>
+                            <p class="mb-1">{{ topic.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small>Posted by {{ topic.author.username }}</small>
+                                <div>
+                                    <span class="badge bg-primary">{{ topic.replies|length }} replies</span>
+                                    <span class="badge bg-secondary">{{ topic.views }} views</span>
+                                    <a href="{{ url_for('view_topic', topic_id=topic.id) }}" class="btn btn-sm btn-outline-primary">View Discussion</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-4">
+                            <p>No forum topics yet.</p>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTopicModal">
+                                Start a Discussion
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-4">
+            <!-- Franchise Connection -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Franchise Opportunities</h3>
+                </div>
+                <div class="card-body">
+                    <p>Connect with successful dairy businesses and explore franchise opportunities.</p>
+                    <div class="d-grid">
+                        {% if user_role == 'owner' %}
+                            <button class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#franchiseModal">
+                                Become a Franchisor
+                            </button>
+                        {% endif %}
+                        <a href="{{ url_for('search_franchises') }}" class="btn btn-outline-success">
+                            Find Franchises
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Help -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Quick Help</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="{{ url_for('quick_help') }}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-compass"></i> Help Center
+                        </a>
+                        <a href="{{ url_for('documentation') }}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-book"></i> Documentation
+                        </a>
+                        <a href="{{ url_for('video_tutorials') }}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-video"></i> Video Tutorials
+                        </a>
+                        <a href="{{ url_for('faqs') }}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-question-circle"></i> FAQs
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Community Stats</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Active Members
+                            <span class="badge bg-primary rounded-pill">{{ community_stats.active_members }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Total Topics
+                            <span class="badge bg-primary rounded-pill">{{ community_stats.total_topics }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Franchises Available
+                            <span class="badge bg-primary rounded-pill">{{ community_stats.franchises }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!-- New Support Ticket Modal -->
+<div class="modal fade" id="newTicketModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Support Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('create_ticket') }}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="subject" name="subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="technical">Technical Support</option>
+                            <option value="business">Business Support</option>
+                            <option value="franchise">Franchise Related</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Franchise Modal -->
+<div class="modal fade" id="franchiseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Become a Franchisor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('create_franchise') }}" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="franchise_name" class="form-label">Franchise Name</label>
+                        <input type="text" class="form-control" id="franchise_name" name="franchise_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="brand_image" class="form-label">Brand Image</label>
+                        <input type="file" class="form-control" id="brand_image" name="brand_image" accept="image/*" required>
+                        <div class="form-text">Upload a clear brand logo or image (JPG, PNG). Max size: 2MB</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="min_investment" class="form-label">Minimum Investment (₹)</label>
+                            <input type="number" class="form-control" id="min_investment" name="min_investment" required min="0" step="10000">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="max_investment" class="form-label">Maximum Investment (₹)</label>
+                            <input type="number" class="form-control" id="max_investment" name="max_investment" required min="0" step="10000">
+                        </div>
+                        <div class="form-text">Specify the investment range for your franchise</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="locations" class="form-label">Available Locations</label>
+                        <input type="text" class="form-control" id="locations" name="locations" required>
+                        <div class="form-text">Enter comma-separated locations (e.g., Mumbai, Delhi, Bangalore)</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="franchise_description" class="form-label">Description</label>
+                        <textarea class="form-control" id="franchise_description" name="franchise_description" rows="4" required></textarea>
+                        <div class="form-text">Describe your franchise opportunity, benefits, and requirements</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Create Franchise Listing</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- New Topic Modal -->
+<div class="modal fade" id="newTopicModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Start a New Discussion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('create_topic') }}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Topic Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="general">General Discussion</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="business">Business & Marketing</option>
+                            <option value="franchise">Franchise Opportunities</option>
+                            <option value="community">Community Events</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                        <div class="form-text">Provide a clear description of your topic to encourage meaningful discussions.</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="notify" name="notify" checked>
+                            <label class="form-check-label" for="notify">
+                                Notify me when someone replies
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Topic</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Ticket View Modal -->
+<div class="modal fade" id="viewTicketModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ticket-details">
+                    <div class="mb-3">
+                        <h6>Ticket ID: <span id="ticketId"></span></h6>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Subject:</h6>
+                        <p id="ticketSubject"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Status:</h6>
+                        <span id="ticketStatus" class="badge"></span>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Category:</h6>
+                        <p id="ticketCategory"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Message:</h6>
+                        <p id="ticketMessage"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Created:</h6>
+                        <p id="ticketCreated"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="ticket-responses">
+                    <h6>Responses:</h6>
+                    <div id="ticketResponses" class="list-group mb-3">
+                        <!-- Responses will be populated here -->
+                    </div>
+                    <div class="mb-3">
+                        <label for="newResponse" class="form-label">Add Response</label>
+                        <textarea class="form-control" id="newResponse" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitResponse()">Add Response</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function viewTicket(ticketId) {
+    // Show the modal
+    const modal = new bootstrap.Modal(document.getElementById('viewTicketModal'));
+    
+    // Fetch ticket details from the server
+    fetch(`/api/tickets/${ticketId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate ticket details
+            document.getElementById('ticketId').textContent = data.id;
+            document.getElementById('ticketSubject').textContent = data.subject;
+            document.getElementById('ticketMessage').textContent = data.message;
+            document.getElementById('ticketCategory').textContent = data.category;
+            document.getElementById('ticketCreated').textContent = new Date(data.created_at).toLocaleString();
+            
+            // Set status with appropriate color
+            const statusBadge = document.getElementById('ticketStatus');
+            statusBadge.textContent = data.status;
+            statusBadge.className = `badge bg-${data.status === 'resolved' ? 'success' : data.status === 'in_progress' ? 'warning' : 'info'}`;
+            
+            // Populate responses
+            const responsesContainer = document.getElementById('ticketResponses');
+            responsesContainer.innerHTML = '';
+            
+            if (data.responses && data.responses.length > 0) {
+                data.responses.forEach(response => {
+                    const responseElement = document.createElement('div');
+                    responseElement.className = 'list-group-item';
+                    responseElement.innerHTML = `
+                        <div class="d-flex justify-content-between">
+                            <strong>${response.author}</strong>
+                            <small>${new Date(response.created_at).toLocaleString()}</small>
+                        </div>
+                        <p class="mb-0 mt-2">${response.message}</p>
+                    `;
+                    responsesContainer.appendChild(responseElement);
+                });
+            } else {
+                responsesContainer.innerHTML = '<p class="text-muted">No responses yet.</p>';
+            }
+            
+            modal.show();
+        })
+        .catch(error => {
+            console.error('Error fetching ticket details:', error);
+            alert('Failed to load ticket details. Please try again.');
+        });
+}
+
+function submitResponse() {
+    const ticketId = document.getElementById('ticketId').textContent;
+    const response = document.getElementById('newResponse').value;
+    
+    if (!response.trim()) {
+        alert('Please enter a response message.');
+        return;
+    }
+    
+    fetch(`/api/tickets/${ticketId}/respond`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: response })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Refresh ticket view
+        viewTicket(ticketId);
+        // Clear response input
+        document.getElementById('newResponse').value = '';
+    })
+    .catch(error => {
+        console.error('Error submitting response:', error);
+        alert('Failed to submit response. Please try again.');
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Validate investment range
+    const minInvestment = document.getElementById('min_investment');
+    const maxInvestment = document.getElementById('max_investment');
+
+    function validateInvestment() {
+        if (minInvestment.value && maxInvestment.value) {
+            if (parseInt(minInvestment.value) >= parseInt(maxInvestment.value)) {
+                maxInvestment.setCustomValidity('Maximum investment must be greater than minimum investment');
+            } else {
+                maxInvestment.setCustomValidity('');
+            }
+        }
+    }
+
+    minInvestment.addEventListener('input', validateInvestment);
+    maxInvestment.addEventListener('input', validateInvestment);
+
+    // Validate image size
+    const brandImage = document.getElementById('brand_image');
+    brandImage.addEventListener('change', function() {
+        if (this.files[0]) {
+            if (this.files[0].size > 2 * 1024 * 1024) { // 2MB
+                this.setCustomValidity('Image size must be less than 2MB');
+            } else {
+                this.setCustomValidity('');
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 

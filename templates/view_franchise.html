@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}{{ franchise.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('search_franchises') }}">Franchises</a></li>
+            <li class="breadcrumb-item active">{{ franchise.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Franchise Details -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2 class="mb-0">{{ franchise.name }}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>About This Franchise</h5>
+                        <p>{{ franchise.description }}</p>
+                    </div>
+                    <img src="{{ url_for('static', filename='franchises/' + franchise.brand_image) }}" 
+                    class="card-img-top img-fluid" alt="{{ franchise.name }}"
+                    style="max-height: 350px; object-fit: contain;">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Investment Details</h5>
+                            <ul class="list-unstyled">
+                                <li><strong>Investment Range:</strong> ₹{{ "{:,.2f}".format(franchise.min_investment) }} - ₹{{ "{:,.2f}".format(franchise.max_investment) }}</li>
+                                <li><strong>Available Locations:</strong> {{ franchise.locations }}</li>
+                                <li><strong>Listed:</strong> {{ franchise.created_at.strftime('%B %d, %Y') }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="contact-info-card p-3 border rounded bg-light">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-address-card text-primary me-2"></i>Contact Information
+                                </h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-user text-primary me-2"></i>
+                                            <div>
+                                                <strong>Owner:</strong><br>
+                                                {{ franchise.owner.username }}
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-envelope text-primary me-2"></i>
+                                            <div>
+                                                <strong>Email:</strong><br>
+                                                <a href="mailto:{{ franchise.owner.email }}" class="text-decoration-none">
+                                                    {{ franchise.owner.email }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% if franchise.owner.phone %}
+                                    <li class="mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-phone text-primary me-2"></i>
+                                            <div>
+                                                <strong>Phone:</strong><br>
+                                                <a href="tel:{{ franchise.owner.phone }}" class="text-decoration-none">
+                                                    {{ franchise.owner.phone }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                                <div class="mt-3">
+                                    {% if current_user.id != franchise.owner_id %}
+                                        <a href="mailto:{{ franchise.owner.email }}" class="btn btn-outline-primary btn-sm me-2">
+                                            <i class="fas fa-envelope me-1"></i> Send Email
+                                        </a>
+                                        {% if franchise.owner.phone %}
+                                        <a href="tel:{{ franchise.owner.phone }}" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-phone me-1"></i> Call Now
+                                        </a>
+                                        {% endif %}
+                                    {% else %}
+                                        <button class="btn btn-secondary btn-sm" disabled>
+                                            <i class="fas fa-user me-1"></i> Your Franchise
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if current_user.id == franchise.owner_id %}
+                    <button class="btn btn-secondary" disabled>
+                        You are the Owner
+                    </button>
+                    <!-- <a href="{{ url_for('view_franchise', franchise_id=franchise.id) }}" class="btn btn-primary">
+                        View Inquiries
+                    </a> -->
+                    {% else %}
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquiryModal">
+                        Submit Inquiry
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Franchise Statistics -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Franchise Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <h3>{{ franchise.inquiries|length }}</h3>
+                            <p class="text-muted">Total Inquiries</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>{{ franchise.inquiries|selectattr('status', 'equalto', 'accepted')|list|length }}</h3>
+                            <p class="text-muted">Accepted Inquiries</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>{{ franchise.locations.split(',')|length }}</h3>
+                            <p class="text-muted">Available Locations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-4">
+            <!-- Similar Franchises -->
+            <!-- <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Similar Investment Range</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        {% for similar in similar_franchises %}
+                        {% if similar.id != franchise.id %}
+                        <a href="{{ url_for('view_franchise', franchise_id=similar.id) }}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ similar.name }}</h6>
+                                <small>${{ "%.2f"|format(similar.investment_required) }}</small>
+                            </div>
+                            <small class="text-muted">{{ similar.locations }}</small>
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Quick Help -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Need Help?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Have questions about this franchise? Our support team is here to help!</p>
+                    <a href="{{ url_for('support') }}" class="btn btn-outline-primary w-100">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inquiry Modal -->
+<div class="modal fade" id="inquiryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Submit Franchise Inquiry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('create_inquiry') }}" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="franchise_id" value="{{ franchise.id }}">
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="investment_capacity" class="form-label">Investment Capacity ($)</label>
+                        <input type="number" class="form-control" id="investment_capacity" name="investment_capacity" required min="0" step="0.01">
+                    </div>
+                    <div class="mb-3">
+                        <label for="preferred_location" class="form-label">Preferred Location</label>
+                        <input type="text" class="form-control" id="preferred_location" name="preferred_location" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

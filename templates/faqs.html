@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+
+{% block title %}FAQs - Dairy Management System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('support') }}">Support & Community</a></li>
+            <li class="breadcrumb-item"><a href="#" onclick="history.back()">Quick Help</a></li>
+            <li class="breadcrumb-item active">FAQs</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Categories</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#general" class="list-group-item list-group-item-action">General Questions</a>
+                    <a href="#users" class="list-group-item list-group-item-action">For Users</a>
+                    <a href="#products" class="list-group-item list-group-item-action">Products & Orders</a>
+                    <a href="#community" class="list-group-item list-group-item-action">Community & Discussions</a>
+                    <a href="#franchise" class="list-group-item list-group-item-action">Franchise Inquiries</a>
+                    <a href="#support" class="list-group-item list-group-item-action">Support</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Need More Help?</h5>
+                    <p class="card-text">Can't find what you're looking for?</p>
+                    <a href="{{ url_for('support') }}" class="btn btn-primary">Contact Support</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <!-- General Questions -->
+            <section id="general" class="mb-5">
+                <h2 class="border-bottom pb-2">General Questions</h2>
+                <div class="accordion" id="accordionGeneral">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#general1">
+                                What is the Dairy Management System?
+                            </button>
+                        </h3>
+                        <div id="general1" class="accordion-collapse collapse show" data-bs-parent="#accordionGeneral">
+                            <div class="accordion-body">
+                                The Dairy Management System is a platform connecting dairy businesses with customers. Users can browse products, place orders, participate in community discussions, and contact franchise owners. Dairy businesses can manage their operations, inventory, and customer relationships.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#general2">
+                                Do I need to create an account to use the system?
+                            </button>
+                        </h3>
+                        <div id="general2" class="accordion-collapse collapse" data-bs-parent="#accordionGeneral">
+                            <div class="accordion-body">
+                                Yes, you need a free account to browse products, participate in discussions, and contact franchise owners. Creating an account is simple - just click "Sign Up" and follow the registration process.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- For Users -->
+            <section id="users" class="mb-5">
+                <h2 class="border-bottom pb-2">For Users</h2>
+                <div class="accordion" id="accordionUsers">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#users1">
+                                What can I do as a regular user?
+                            </button>
+                        </h3>
+                        <div id="users1" class="accordion-collapse collapse" data-bs-parent="#accordionUsers">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled">
+                                    <li>✓ Browse dairy products and view details</li>
+                                    <li>✓ Participate in community discussions</li>
+                                    <li>✓ Contact franchise owners</li>
+                                    <li>✓ Submit support tickets</li>
+                                    <li>✓ View product availability and pricing</li>
+                                    <li>✓ Track order status</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#users2">
+                                How do I update my profile and preferences?
+                            </button>
+                        </h3>
+                        <div id="users2" class="accordion-collapse collapse" data-bs-parent="#accordionUsers">
+                            <div class="accordion-body">
+                                Click on your profile icon in the top right corner, select "Profile Settings," and you can update your personal information, notification preferences, and communication settings.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products & Orders -->
+            <section id="products" class="mb-5">
+                <h2 class="border-bottom pb-2">Products & Orders</h2>
+                <div class="accordion" id="accordionProducts">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#products1">
+                                How can I view available dairy products?
+                            </button>
+                        </h3>
+                        <div id="products1" class="accordion-collapse collapse" data-bs-parent="#accordionProducts">
+                            <div class="accordion-body">
+                                Visit the Products page to browse all available dairy products. You can filter by category, location, or price range. Each product listing shows detailed information including price, availability, and quality metrics.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#products2">
+                                How do I track my orders?
+                            </button>
+                        </h3>
+                        <div id="products2" class="accordion-collapse collapse" data-bs-parent="#accordionProducts">
+                            <div class="accordion-body">
+                                Go to "My Orders" in your account dashboard to view all your orders and their current status. You can see delivery estimates, order details, and contact support if needed.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community & Discussions -->
+            <section id="community" class="mb-5">
+                <h2 class="border-bottom pb-2">Community & Discussions</h2>
+                <div class="accordion" id="accordionCommunity">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#community1">
+                                How do I participate in discussions?
+                            </button>
+                        </h3>
+                        <div id="community1" class="accordion-collapse collapse" data-bs-parent="#accordionCommunity">
+                            <div class="accordion-body">
+                                Visit the Community section to view ongoing discussions. You can read topics, reply to existing threads, and search for specific topics. Remember to follow our community guidelines when participating.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#community2">
+                                Can I start new discussion topics?
+                            </button>
+                        </h3>
+                        <div id="community2" class="accordion-collapse collapse" data-bs-parent="#accordionCommunity">
+                            <div class="accordion-body">
+                                Yes, you can start new discussion topics in the community forum. Click "New Topic," choose a relevant category, and share your question or discussion point with the community.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Franchise Inquiries -->
+            <section id="franchise" class="mb-5">
+                <h2 class="border-bottom pb-2">Franchise Inquiries</h2>
+                <div class="accordion" id="accordionFranchise">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#franchise1">
+                                How do I contact a franchise owner?
+                            </button>
+                        </h3>
+                        <div id="franchise1" class="accordion-collapse collapse" data-bs-parent="#accordionFranchise">
+                            <div class="accordion-body">
+                                Visit the franchise's profile page and click "Contact Owner" to send them a message. You can inquire about products, services, or business opportunities through this channel.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#franchise2">
+                                How do I submit a franchise inquiry?
+                            </button>
+                        </h3>
+                        <div id="franchise2" class="accordion-collapse collapse" data-bs-parent="#accordionFranchise">
+                            <div class="accordion-body">
+                                To submit a franchise inquiry, go to the Franchise section and click "Submit Inquiry." Fill out the form with your details and business interests, and our franchise development team will contact you.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Support -->
+            <section id="support" class="mb-5">
+                <h2 class="border-bottom pb-2">Support</h2>
+                <div class="accordion" id="accordionSupport">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#support1">
+                                How do I get help with the system?
+                            </button>
+                        </h3>
+                        <div id="support1" class="accordion-collapse collapse" data-bs-parent="#accordionSupport">
+                            <div class="accordion-body">
+                                You can get help by:
+                                <ul>
+                                    <li>Creating a support ticket</li>
+                                    <li>Using live chat during business hours</li>
+                                    <li>Checking our FAQ section</li>
+                                    <li>Posting in the community forum</li>
+                                    <li>Calling our support hotline for urgent issues</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#support2">
+                                How do I raise a support ticket?
+                            </button>
+                        </h3>
+                        <div id="support2" class="accordion-collapse collapse" data-bs-parent="#accordionSupport">
+                            <div class="accordion-body">
+                                Click on "Support" in the navigation menu, then select "Create Ticket." Describe your issue in detail, attach any relevant screenshots, and submit. Our support team will respond within 24 hours.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Highlight active section in sidebar
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.list-group-item');
+        
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom >= 100) {
+                navItems.forEach(item => item.classList.remove('active'));
+                navItems[index].classList.add('active');
+            }
+        });
+    });
+});
+</script>
+
+<style>
+.list-group-item.active {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    border-color: #dee2e6;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+section {
+    scroll-margin-top: 20px;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.breadcrumb {
+    background-color: #f8f9fa;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb-item a {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.accordion-item {
+    margin-bottom: 0.5rem;
+}
+
+.accordion-button {
+    transition: all 0.3s ease;
+}
+
+.accordion-button:hover {
+    background-color: #f8f9fa;
+}
+
+/* List styling */
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.list-unstyled li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.list-unstyled li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #198754;
+}
+</style>
+{% endblock %} 

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Cow Calculator{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Cow Capacity Calculator</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="land_size" class="form-label">Land Size (in cents)</label>
+                            <input type="number" class="form-control" id="land_size" 
+                                   name="land_size" required min="1" step="0.01">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="shed_cost" class="form-label">Shed Construction Cost (INR)</label>
+                            <input type="number" class="form-control" id="shed_cost" 
+                                   name="shed_cost" required min="1">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="feed_cost_day" class="form-label">Feed Cost Per Day (INR)</label>
+                            <input type="number" class="form-control" id="feed_cost_day" 
+                                   name="feed_cost_day" required min="1">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="feed_cost_month" class="form-label">Feed Cost Per Month (INR)</label>
+                            <input type="number" class="form-control" id="feed_cost_month" 
+                                   name="feed_cost_month" required min="1">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="cow_purchase_cost" class="form-label">Cow Purchase Cost (INR)</label>
+                            <input type="number" class="form-control" id="cow_purchase_cost" 
+                                   name="cow_purchase_cost" required min="1">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Calculate</button>
+                    </form>
+
+                    {% if result %}
+                    <div class="mt-4">
+                        <div class="alert alert-{{ 'success' if result.status == 'Success' else 'danger' }}">
+                            <h4 class="alert-heading">{{ result.status }}</h4>
+                            <p>{{ result.message }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-calculate monthly feed cost
+document.getElementById('feed_cost_day').addEventListener('input', function() {
+    const dailyCost = parseFloat(this.value) || 0;
+    document.getElementById('feed_cost_month').value = (dailyCost * 30).toFixed(2);
+});
+
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %}

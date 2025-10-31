@@ -1,0 +1,628 @@
+{% extends "base.html" %}
+
+{% block title %}Dairy Farm Guide & Resources{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-4">Dairy Farm Guide</h1>
+        <p class="lead">Practical knowledge and daily management tips for dairy farmers</p>
+    </div>
+
+    <!-- Quick Navigation -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <nav class="nav nav-pills nav-fill">
+                        <a class="nav-link active" href="#learning">Learning Center</a>
+                        <a class="nav-link" href="#daily-operations">Daily Operations</a>
+                        <a class="nav-link" href="#best-practices">Proven Methods</a>
+                        <a class="nav-link" href="#seasonal-care">Seasonal Care</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Learning Center Section -->
+    <section id="learning" class="mb-5">
+        <div class="section-header mb-4">
+            <h2 class="text-primary"><i class="fas fa-graduation-cap me-2"></i>Learning Center</h2>
+            <p class="text-muted">Step-by-step dairy farming education from basics to advanced management</p>
+        </div>
+
+        <!-- Learning Path Navigation -->
+        <div class="mb-4">
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn btn-outline-primary active" data-bs-toggle="collapse" data-bs-target="#beginnerLevel">
+                    <i class="fas fa-seedling me-2"></i>Beginner Level
+                </button>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#intermediateLevel">
+                    <i class="fas fa-tree me-2"></i>Intermediate Level
+                </button>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#advancedLevel">
+                    <i class="fas fa-star me-2"></i>Advanced Level
+                </button>
+            </div>
+        </div>
+
+        <!-- Beginner Level -->
+        <div id="beginnerLevel" class="collapse show">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-success">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="h5 mb-0"><i class="fas fa-1 me-2"></i>Basic Farm Setup</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6><i class="fas fa-home text-success me-2"></i>Housing Requirements</h6>
+                                <ul class="small text-muted">
+                                    <li>Space: 100 sq ft/cow loose housing</li>
+                                    <li>Ventilation: 30 air changes/hour</li>
+                                    <li>Floor: Non-slip concrete, 2% slope</li>
+                                    <li>Roof Height: Minimum 12 feet</li>
+                                </ul>
+                            </div>
+                            <div class="mb-4">
+                                <h6><i class="fas fa-tint text-primary me-2"></i>Water System</h6>
+                                <ul class="small text-muted">
+                                    <li>Storage: 150L/cow capacity</li>
+                                    <li>Trough Height: 2-2.5 feet</li>
+                                    <li>Water Quality: TDS <1000 ppm</li>
+                                    <li>Access: 1 point per 20 cows</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="h5 mb-0"><i class="fas fa-2 me-2"></i>Basic Cattle Care</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6><i class="fas fa-utensils text-primary me-2"></i>Basic Feeding</h6>
+                                <ul class="small text-muted">
+                                    <li>Green Fodder: 20-25 kg/day</li>
+                                    <li>Dry Fodder: 5-7 kg/day</li>
+                                    <li>Concentrate: 2-3 kg/day</li>
+                                    <li>Feeding Schedule: 3 times daily</li>
+                                </ul>
+                            </div>
+                            <div class="mb-4">
+                                <h6><i class="fas fa-stethoscope text-danger me-2"></i>Basic Health</h6>
+                                <ul class="small text-muted">
+                                    <li>Daily Temperature Check</li>
+                                    <li>Basic Wound Care</li>
+                                    <li>Deworming Schedule</li>
+                                    <li>Vaccination Calendar</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intermediate Level -->
+        <div id="intermediateLevel" class="collapse">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-warning">
+                        <div class="card-header bg-warning text-dark">
+                            <h4 class="h5 mb-0"><i class="fas fa-1 me-2"></i>Feed Management</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-balance-scale text-warning me-2"></i>Ration Balancing</h6>
+                                <ul class="small text-muted">
+                                    <li>Protein: 16-18% of DM</li>
+                                    <li>Energy: 65-70% TDN</li>
+                                    <li>Fiber: Minimum 17% ADF</li>
+                                    <li>Minerals: Macro & Micro mix</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-leaf text-success me-2"></i>Fodder Production</h6>
+                                <ul class="small text-muted">
+                                    <li>Land Required: 1 acre/4 cows</li>
+                                    <li>Crop Rotation Planning</li>
+                                    <li>Silage Making Process</li>
+                                    <li>Quality Assessment</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-info">
+                        <div class="card-header bg-info text-white">
+                            <h4 class="h5 mb-0"><i class="fas fa-2 me-2"></i>Breeding Management</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-venus-mars text-info me-2"></i>Heat Detection</h6>
+                                <ul class="small text-muted">
+                                    <li>Primary Signs Checklist</li>
+                                    <li>Timing: AM/PM Rule</li>
+                                    <li>Recording Systems</li>
+                                    <li>Common Mistakes</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-baby text-pink me-2"></i>Pregnancy Care</h6>
+                                <ul class="small text-muted">
+                                    <li>Trimester-wise Care</li>
+                                    <li>Nutrition Adjustments</li>
+                                    <li>Exercise Routines</li>
+                                    <li>Calving Preparation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-success">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="h5 mb-0"><i class="fas fa-3 me-2"></i>Health Management</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-heartbeat text-danger me-2"></i>Disease Prevention</h6>
+                                <ul class="small text-muted">
+                                    <li>Biosecurity Measures</li>
+                                    <li>Vaccination Schedule</li>
+                                    <li>Parasite Control</li>
+                                    <li>Hygiene Protocols</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-notes-medical text-success me-2"></i>Health Records</h6>
+                                <ul class="small text-muted">
+                                    <li>Individual Cow Cards</li>
+                                    <li>Treatment Records</li>
+                                    <li>Vaccination Records</li>
+                                    <li>Health History</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Level -->
+        <div id="advancedLevel" class="collapse">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <h4 class="h5 mb-0"><i class="fas fa-1 me-2"></i>Farm Economics</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-chart-line text-danger me-2"></i>Financial Planning</h6>
+                                <ul class="small text-muted">
+                                    <li>Cost Analysis Methods</li>
+                                    <li>Revenue Projections</li>
+                                    <li>Break-even Analysis</li>
+                                    <li>Investment Planning</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-calculator text-primary me-2"></i>Performance Metrics</h6>
+                                <ul class="small text-muted">
+                                    <li>Production Efficiency</li>
+                                    <li>Feed Conversion Ratio</li>
+                                    <li>Labor Efficiency</li>
+                                    <li>Return on Investment</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="h5 mb-0"><i class="fas fa-2 me-2"></i>Advanced Breeding</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-dna text-primary me-2"></i>Genetic Improvement</h6>
+                                <ul class="small text-muted">
+                                    <li>Bull Selection Criteria</li>
+                                    <li>Progeny Testing</li>
+                                    <li>Breeding Value Analysis</li>
+                                    <li>Inbreeding Management</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-microscope text-info me-2"></i>Reproductive Technology</h6>
+                                <ul class="small text-muted">
+                                    <li>Embryo Transfer</li>
+                                    <li>Sexed Semen Usage</li>
+                                    <li>Synchronization Programs</li>
+                                    <li>Fertility Management</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-success">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="h5 mb-0"><i class="fas fa-3 me-2"></i>Smart Farming</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-robot text-success me-2"></i>Technology Integration</h6>
+                                <ul class="small text-muted">
+                                    <li>Automated Milking Systems</li>
+                                    <li>Herd Management Software</li>
+                                    <li>IoT Sensors & Monitoring</li>
+                                    <li>Data Analytics</li>
+                                </ul>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-leaf text-success me-2"></i>Sustainable Practices</h6>
+                                <ul class="small text-muted">
+                                    <li>Waste Management Systems</li>
+                                    <li>Renewable Energy Use</li>
+                                    <li>Water Conservation</li>
+                                    <li>Carbon Footprint Reduction</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Operations Section -->
+    <section id="daily-operations" class="mb-5">
+        <div class="section-header mb-4">
+            <h2 class="text-primary"><i class="fas fa-tasks me-2"></i>Daily Operations</h2>
+            <p class="text-muted">Step-by-step guides for your daily farming activities</p>
+        </div>
+        <div class="row">
+            <!-- Basic Operations -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h5 mb-0"><i class="fas fa-sun me-2"></i>Morning Routine</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="h6 mb-3">Essential Morning Tasks</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>4:30 AM - First Milking</strong>
+                                <p class="small text-muted ms-4">Clean udder with warm water (35-37°C), check for mastitis signs, use teat dip after milking</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>5:30 AM - Feeding Time</strong>
+                                <p class="small text-muted ms-4">Fresh fodder first, followed by concentrate mix. Check water temperature (15-20°C)</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>6:30 AM - Health Check</strong>
+                                <p class="small text-muted ms-4">Check body temperature (38.5-39.5°C), rumination rate (50-70/min), and activity level</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>7:30 AM - Cleaning</strong>
+                                <p class="small text-muted ms-4">Remove wet bedding, clean water troughs, sanitize milking equipment (50ppm chlorine)</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feed Management -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="h5 mb-0"><i class="fas fa-utensils me-2"></i>Feed Management</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="h6 mb-3">Daily Feed Mix</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Green Fodder Mix</strong>
+                                <p class="small text-muted ms-4">40kg/day: Napier grass (24kg), Lucerne (16kg). Cut length: 2-3cm for better digestion</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Dry Feed Mix</strong>
+                                <p class="small text-muted ms-4">15kg/day: Wheat straw (4.5kg), Paddy straw (4.5kg), Quality hay (6kg)</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Concentrate Feed</strong>
+                                <p class="small text-muted ms-4">5kg/day: Maize (30%), Soybean meal (20%), Wheat bran (20%), Minerals (5%), Others (25%)</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Water Requirements</strong>
+                                <p class="small text-muted ms-4">80-100L/day: Fresh water 4-6 times daily, extra 10% during lactation</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Management -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-info">
+                    <div class="card-header bg-info text-white">
+                        <h3 class="h5 mb-0"><i class="fas fa-heartbeat me-2"></i>Health Care</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="h6 mb-3">Regular Health Checks</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Common Issues</strong>
+                                <p class="small text-muted ms-4">Check for mastitis (hard/swollen udder), lameness (hoof condition), bloat (left side swelling)</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Vaccination Schedule</strong>
+                                <p class="small text-muted ms-4">FMD (6 months), HS (annually), BQ (annually), Brucellosis (calves only)</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Pregnancy Care</strong>
+                                <p class="small text-muted ms-4">Dry period (60 days), special feed mix, regular exercise, separate housing</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Critical Signs</strong>
+                                <p class="small text-muted ms-4">Temp >40°C, no rumination, discharge, severe diarrhea need immediate attention</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section id="best-practices" class="mb-5">
+        <div class="section-header mb-4">
+            <h2 class="text-primary"><i class="fas fa-star me-2"></i>Proven Methods</h2>
+            <p class="text-muted">Time-tested practices for successful dairy farming</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="text-primary"><i class="fas fa-tint me-2"></i>Milk Quality Parameters</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Fat Content: 3.5-4.5% (Jersey: 4.5-5.5%)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>SNF: Min 8.5% (protein 3.2%, lactose 4.8%)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Storage Temp: Raw milk 4°C, Processing 72°C-15sec</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Bacterial Count: <100,000/ml (Grade A)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Somatic Cell: <400,000/ml (healthy udder)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>pH: 6.6-6.8, Density: 1.027-1.033 g/ml</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Freezing Point: -0.525°C to -0.565°C</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>No Antibiotics: 72hr withdrawal period</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="text-success"><i class="fas fa-seedling me-2"></i>Resource Management</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Feed Storage: Silage pH 3.8-4.2, moisture 65-70%</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Water Recycling: Plate cooler saves 50% water</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Energy: LED lights save 75% electricity</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Biogas: 1 cow produces 2-3m³ gas/day</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Compost: C:N ratio 30:1 optimal</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Solar: 5kW system for 50 cattle farm</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Rainwater: 1000L storage per 100m² roof</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="text-info"><i class="fas fa-calculator me-2"></i>Performance Tracking</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Milk Yield: Peak yield by day 60-90</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Feed Efficiency: 1.4-1.7kg milk/kg feed</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Reproduction: 85% conception rate target</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Calf Growth: 700-800g daily gain</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Mortality Rate: <5% adult, <10% calves</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Labor: 1 worker per 20-25 cows</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cost/Liter: Track feed, labor, health</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Care Section -->
+    <section id="seasonal-care" class="mb-5">
+        <div class="section-header mb-4">
+            <h2 class="text-primary"><i class="fas fa-calendar-alt me-2"></i>Seasonal Care</h2>
+            <p class="text-muted">Adapt your farm management to seasonal changes</p>
+        </div>
+        <div class="row">
+            <!-- Summer Care -->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-danger text-white">
+                        <h4 class="h5 mb-0"><i class="fas fa-sun me-2"></i>Summer Care</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-thermometer-full text-danger me-2"></i>Install Fans/Sprinklers</li>
+                            <li class="mb-2"><i class="fas fa-tint text-primary me-2"></i>Water: 100-120L/day</li>
+                            <li class="mb-2"><i class="fas fa-clock text-warning me-2"></i>Early Morning Grazing</li>
+                            <li class="mb-2"><i class="fas fa-shield-alt text-success me-2"></i>Shade Protection</li>
+                        </ul>
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <small>Heat Stress Warning: Above 25°C</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monsoon Care -->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="h5 mb-0"><i class="fas fa-cloud-rain me-2"></i>Monsoon Care</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-home text-primary me-2"></i>Dry Bedding Daily</li>
+                            <li class="mb-2"><i class="fas fa-bug text-danger me-2"></i>Pest Control Weekly</li>
+                            <li class="mb-2"><i class="fas fa-capsules text-warning me-2"></i>Deworming</li>
+                            <li class="mb-2"><i class="fas fa-broom text-success me-2"></i>Extra Floor Cleaning</li>
+                        </ul>
+                        <div class="alert alert-info mt-3" role="alert">
+                            <small>Check Drainage Systems Daily</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Winter Care -->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="h5 mb-0"><i class="fas fa-snowflake me-2"></i>Winter Care</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-fire text-danger me-2"></i>Warm Water: 25°C</li>
+                            <li class="mb-2"><i class="fas fa-utensils text-success me-2"></i>Extra Feed: +2kg/day</li>
+                            <li class="mb-2"><i class="fas fa-bed text-primary me-2"></i>Warm Bedding</li>
+                            <li class="mb-2"><i class="fas fa-wind text-info me-2"></i>Draft Protection</li>
+                        </ul>
+                        <div class="alert alert-primary mt-3" role="alert">
+                            <small>Newborn Calf Special Care</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spring Care -->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="h5 mb-0"><i class="fas fa-leaf me-2"></i>Spring Care</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-allergies text-warning me-2"></i>Allergy Watch</li>
+                            <li class="mb-2"><i class="fas fa-spa text-success me-2"></i>Grazing Schedule</li>
+                            <li class="mb-2"><i class="fas fa-shower text-info me-2"></i>Shed Cleaning</li>
+                            <li class="mb-2"><i class="fas fa-stethoscope text-danger me-2"></i>Health Check</li>
+                        </ul>
+                        <div class="alert alert-success mt-3" role="alert">
+                            <small>Breeding Season Prep</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Smooth scrolling for documentation links
+    document.querySelectorAll('#navbar-docs a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = document.querySelector(this.getAttribute('href'));
+            section.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Highlight active section in nav
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('#navbar-docs a');
+        
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 60) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active', 'bg-light');
+            if (link.getAttribute('href').substring(1) === current) {
+                link.classList.add('active', 'bg-light');
+            }
+        });
+    });
+});
+</script>
+
+<style>
+.nav-link {
+    color: #333;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: #0d6efd;
+}
+
+.nav-link.active {
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+section {
+    scroll-margin-top: 20px;
+}
+
+.card {
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+pre code {
+    display: block;
+    white-space: pre;
+    overflow-x: auto;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.sticky-top {
+    z-index: 1000;
+}
+</style>
+{% endblock %} 

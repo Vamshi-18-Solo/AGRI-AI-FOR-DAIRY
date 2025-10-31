@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Veterinary Doctors{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="mb-3">Veterinary Doctors</h1>
+            <p class="text-muted">Find experienced veterinary doctors in your area</p>
+        </div>
+        <div class="col-md-4">
+            <form method="get" class="d-flex">
+                <select name="city" class="form-select me-2" onchange="this.form.submit()">
+                    {% for city in cities %}
+                    <option value="{{ city }}" {% if city == selected_city %}selected{% endif %}>
+                        {{ city|title }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for doctor in doctors %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='doctors/' + doctor.image) }}" 
+                             class="img-fluid rounded-start h-100 object-fit-cover" 
+                             alt="{{ doctor.name }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title">{{ doctor.name }}</h5>
+                                <span class="badge bg-primary">{{ doctor.rating }} ★</span>
+                            </div>
+                            <p class="card-text">
+                                <small class="text-muted">{{ doctor.specialization }}</small>
+                            </p>
+                            <p class="card-text">
+                                <i class="fas fa-clock text-primary"></i> {{ doctor.available_hours }}<br>
+                                <i class="fas fa-phone text-primary"></i> {{ doctor.contact }}<br>
+                                <i class="fas fa-map-marker-alt text-primary"></i> {{ doctor.address }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge {% if doctor.emergency_service %}bg-success{% else %}bg-warning{% endif %}">
+                                    {% if doctor.emergency_service %}
+                                    Emergency Service Available
+                                    {% else %}
+                                    No Emergency Service
+                                    {% endif %}
+                                </span>
+                                <small class="text-muted">{{ doctor.experience }} experience</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not doctors %}
+    <div class="alert alert-info text-center">
+        No veterinary doctors found in this area.
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Franchise Statistics{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('franchise_management') }}">Franchise Management</a></li>
+            <li class="breadcrumb-item active">Statistics</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Overview Stats -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Overview</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Total Franchises
+                            <span class="badge bg-primary rounded-pill">{{ stats.total_franchises }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Average Investment
+                            <span class="badge bg-info rounded-pill">${{ "%.2f"|format(stats.avg_investment) }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Unique Locations
+                            <span class="badge bg-success rounded-pill">{{ stats.locations }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inquiry Stats -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Inquiries</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Total Inquiries</h5>
+                                <span class="badge bg-primary">{{ stats.total_inquiries }}</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Pending</h5>
+                                <span class="badge bg-warning">{{ stats.pending_inquiries }}</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Accepted</h5>
+                                <span class="badge bg-success">{{ stats.accepted_inquiries }}</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Rejected</h5>
+                                <span class="badge bg-danger">{{ stats.rejected_inquiries }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Growth -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Monthly Growth</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="monthlyGrowthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Statistics -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Monthly Statistics</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>New Franchises</th>
+                                    <th>Growth Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for stat in monthly_stats %}
+                                <tr>
+                                    <td>{{ stat.month }}</td>
+                                    <td>{{ stat.count }}</td>
+                                    <td>
+                                        {% if loop.index > 1 %}
+                                            {% set growth = ((stat.count - monthly_stats[loop.index-2].count) / monthly_stats[loop.index-2].count * 100)|round(1) %}
+                                            <span class="text-{{ 'success' if growth > 0 else 'danger' }}">
+                                                {{ growth }}%
+                                            </span>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('monthlyGrowthChart').getContext('2d');
+    const monthlyData = '{{ monthly_stats|tojson|safe }}';
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: monthlyData.map(item => item.month),
+            datasets: [{
+                label: 'New Franchises',
+                data: monthlyData.map(item => item.count),
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 

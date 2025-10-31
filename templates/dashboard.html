@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}My Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">Welcome, {{ current_user.username }}!</h1>
+    
+    <div class="row">
+        <!-- Profile Information -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Profile Information</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>Username:</strong> {{ current_user.username }}</li>
+                        <li><strong>Email:</strong> {{ current_user.email }}</li>
+                        <li><strong>Phone:</strong> {{ current_user.phone or 'Not set' }}</li>
+                    </ul>
+                    <a href="{{ url_for('update_profile') }}" class="btn btn-primary">Update Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Summary -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">My Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Forum Topics</h6>
+                            <h4 class="mb-1">{{ topics|length }}</h4>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Support Tickets</h6>
+                            <h4 class="mb-1">{{ tickets|length }}</h4>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Franchise Inquiries</h6>
+                            <h4 class="mb-1">{{ inquiries|length }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for topic in topics[:3] %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Forum Topic: {{ topic.title }}</h6>
+                                <small>{{ topic.created_at.strftime('%Y-%m-%d') }}</small>
+                            </div>
+                            <p class="mb-1">{{ topic.description[:100] }}...</p>
+                            <a href="{{ url_for('view_topic', topic_id=topic.id) }}" class="btn btn-sm btn-outline-primary">View Topic</a>
+                        </div>
+                        {% endfor %}
+                        
+                        {% for ticket in tickets[:3] %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Support Ticket: {{ ticket.subject }}</h6>
+                                <small>{{ ticket.created_at.strftime('%Y-%m-%d') }}</small>
+                            </div>
+                            <p class="mb-1">Status: <span class="badge bg-{{ 'success' if ticket.status == 'resolved' else 'warning' if ticket.status == 'in_progress' else 'info' }}">{{ ticket.status|title }}</span></p>
+                        </div>
+                        {% endfor %}
+                        
+                        {% for inquiry in inquiries %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Franchise Inquiry: {{ inquiry.franchise.name }}</h6>
+                                <small>{{ inquiry.created_at.strftime('%Y-%m-%d') }}</small>
+                            </div>
+                            <p class="mb-1">Status: <span class="badge bg-{{ 'success' if inquiry.status == 'accepted' else 'danger' if inquiry.status == 'rejected' else 'info' }}">{{ inquiry.status|title }}</span></p>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="{{ url_for('search_franchises') }}" class="btn btn-outline-primary w-100 mb-3">
+                                <i class="fas fa-search"></i><br>
+                                Browse Franchises
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ url_for('search_forum') }}" class="btn btn-outline-primary w-100 mb-3">
+                                <i class="fas fa-comments"></i><br>
+                                Community Forum
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-outline-primary w-100 mb-3" data-bs-toggle="modal" data-bs-target="#newTicketModal">
+                                <i class="fas fa-ticket-alt"></i><br>
+                                New Support Ticket
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ url_for('faqs') }}" class="btn btn-outline-primary w-100 mb-3">
+                                <i class="fas fa-question-circle"></i><br>
+                                View FAQs
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this after the existing sections in the dashboard -->
+    <!-- {% if current_user.role == 'owner' %}
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Recent Franchise Inquiries</h3>
+                    <a href="{{ url_for('my_franchise_inquiries') }}" class="btn btn-primary btn-sm">
+                        View All Inquiries
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if inquiries %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Franchise</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for inquiry in inquiries[:5] %}
+                                    <tr>
+                                        <td>{{ inquiry.created_at.strftime('%Y-%m-%d') }}</td>
+                                        <td>{{ inquiry.franchise.name }}</td>
+                                        <td>{{ inquiry.user.username }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ 'success' if inquiry.status == 'accepted' else 'danger' if inquiry.status == 'rejected' else 'warning' }}">
+                                                {{ inquiry.status|title }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url_for('my_franchise_inquiries') }}" class="btn btn-sm btn-info">View Details</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No franchise inquiries received yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %} -->
+</div>
+
+<!-- New Support Ticket Modal -->
+<div class="modal fade" id="newTicketModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Support Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('create_ticket') }}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="subject" name="subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

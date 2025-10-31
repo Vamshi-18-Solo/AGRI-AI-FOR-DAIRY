@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Quick Help{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4">Quick Help</h1>
+            
+            <!-- Search Bar -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="helpSearch" placeholder="Search for help topics...">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Issues -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Common Issues</h5>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="commonIssues">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#issue1">
+                                    How to Submit a Franchise Inquiry
+                                </button>
+                            </h2>
+                            <div id="issue1" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    <ol>
+                                        <li>Browse available franchises</li>
+                                        <li>Click on a franchise you're interested in</li>
+                                        <li>Click the "Submit Inquiry" button</li>
+                                        <li>Fill out the inquiry form with your details</li>
+                                        <li>Submit and wait for the franchise owner's response</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue2">
+                                    How to Participate in Community Discussions
+                                </button>
+                            </h2>
+                            <div id="issue2" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <ol>
+                                        <li>Visit the Community Forum section</li>
+                                        <li>Browse existing topics or create a new one</li>
+                                        <li>Click on any topic to view discussions</li>
+                                        <li>Use the reply form to add your response</li>
+                                        <li>Follow topics to receive updates</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue3">
+                                    Getting Support
+                                </button>
+                            </h2>
+                            <div id="issue3" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <ol>
+                                        <li>Click on the Support section in the navigation</li>
+                                        <li>Create a new support ticket</li>
+                                        <li>Describe your issue in detail</li>
+                                        <li>Submit the ticket and track its status</li>
+                                        <li>Respond to any follow-up questions</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <i class="fas fa-book fa-3x mb-3 text-primary"></i>
+                            <h5>Documentation</h5>
+                            <p>Access detailed system documentation</p>
+                            <a href="{{ url_for('documentation') }}" class="btn btn-primary">View Docs</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <i class="fas fa-video fa-3x mb-3 text-primary"></i>
+                            <h5>Video Tutorials</h5>
+                            <p>Watch step-by-step tutorials</p>
+                            <a href="{{ url_for('video_tutorials') }}" class="btn btn-primary">Watch Videos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <i class="fas fa-question-circle fa-3x mb-3 text-primary"></i>
+                            <h5>FAQs</h5>
+                            <p>Browse frequently asked questions</p>
+                            <a href="{{ url_for('faqs') }}" class="btn btn-primary">View FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

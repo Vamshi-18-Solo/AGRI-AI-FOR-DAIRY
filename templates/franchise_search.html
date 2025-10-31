@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Search Franchises{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Search Franchises</h1>
+            <p class="lead">Find the perfect dairy franchise opportunity for you</p>
+        </div>
+    </div>
+
+    <!-- Search Filters -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ url_for('search_franchises') }}" method="GET" class="row g-3">
+                        <div class="col-md-3">
+                            <label for="q" class="form-label">Search Keywords</label>
+                            <input type="text" class="form-control" id="q" name="q" value="{{ request.args.get('q', '') }}" placeholder="Search franchises...">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="min_investment" class="form-label">Min Investment (₹)</label>
+                            <input type="number" class="form-control" id="min_investment" name="min_investment" value="{{ request.args.get('min_investment', '') }}" placeholder="Minimum">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="max_investment" class="form-label">Max Investment (₹)</label>
+                            <input type="number" class="form-control" id="max_investment" name="max_investment" value="{{ request.args.get('max_investment', '') }}" placeholder="Maximum">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="location" name="location" value="{{ request.args.get('location', '') }}" placeholder="Enter location">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a href="{{ url_for('search_franchises') }}" class="btn btn-outline-secondary">Clear Filters</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="row">
+        <div class="col-md-12">
+            {% if franchises %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    {% for franchise in franchises %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="{{ url_for('static', filename='franchises/' + franchise.brand_image) }}" 
+                    class="card-img-top img-fluid" alt="{{ franchise.name }}"
+                    style="max-height: 250px; object-fit: contain;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ franchise.name }}</h5>
+                                <p class="card-text">{{ franchise.description }}</p>
+                                <ul class="list-unstyled mb-3">
+                                    <li><strong>Investment Range:</strong> ₹{{ "{:,.2f}".format(franchise.min_investment) }} - ₹{{ "{:,.2f}".format(franchise.max_investment) }}</li>
+                                    <li><strong>Available Locations:</strong> {{ franchise.locations }}</li>
+                                </ul>
+                                <div class="owner-details p-3 bg-light rounded">
+                                    <h6 class="mb-2"><i class="fas fa-user"></i> Owner Details</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li><strong>Name:</strong> {{ franchise.owner.username }}</li>
+                                        <li><strong>Email:</strong> {{ franchise.owner.email }}</li>
+                                        <li><strong>Phone:</strong> {{ franchise.owner.phone if franchise.owner.phone else 'Not provided' }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-grid">
+                                    {% if current_user.id == franchise.owner_id %}
+                                        <button class="btn btn-secondary" disabled>
+                                            You are the Owner
+                                        </button>
+                                    {% else %}
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactFranchiseModal{{ franchise.id }}">
+                                            Contact Franchisor
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Modal for {{ franchise.name }} -->
+                    <div class="modal fade" id="contactFranchiseModal{{ franchise.id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Contact {{ franchise.name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form action="{{ url_for('create_inquiry') }}" method="POST">
+                                    <div class="modal-body">
+                                        <div class="owner-info mb-4 p-3 bg-light rounded">
+                                            <h6 class="mb-2">Franchisor Contact Information</h6>
+                                            <ul class="list-unstyled mb-0">
+                                                <li><strong>Name:</strong> {{ franchise.owner.username }}</li>
+                                                <li><strong>Email:</strong> {{ franchise.owner.email }}</li>
+                                                <li><strong>Phone:</strong> {{ franchise.owner.phone if franchise.owner.phone else 'Not provided' }}</li>
+                                            </ul>
+                                        </div>
+                                        <input type="hidden" name="franchise_id" value="{{ franchise.id }}">
+                                        <div class="mb-3">
+                                            <label for="message{{ franchise.id }}" class="form-label">Your Message</label>
+                                            <textarea class="form-control" id="message{{ franchise.id }}" name="message" rows="4" required></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="investment{{ franchise.id }}" class="form-label">Your Investment Capacity (₹)</label>
+                                            <input type="number" class="form-control" id="investment{{ franchise.id }}" name="investment_capacity" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="location{{ franchise.id }}" class="form-label">Preferred Location</label>
+                                            <input type="text" class="form-control" id="location{{ franchise.id }}" name="preferred_location" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <h3>No franchises found</h3>
+                    <p class="text-muted">Try adjusting your search criteria</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

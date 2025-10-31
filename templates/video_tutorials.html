@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}Video Tutorials - Dairy Management System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('support') }}">Support & Community</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('quick_help') }}">Quick Help</a></li>
+            <li class="breadcrumb-item active">Video Tutorials</li>
+        </ol>
+    </nav>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Getting Started Series</h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-16x9">
+                                    <img src="https://img.youtube.com/vi/eLKScfjYhac/maxresdefault.jpg" class="card-img-top" alt="System Overview">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Dairy Farm Management System Overview</h5>
+                                    <p class="card-text">Learn about key features and efficient dairy farm management practices.</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal1">
+                                        <i class="fas fa-play-circle"></i> Watch Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-16x9">
+                                    <img src="https://img.youtube.com/vi/wDT0JmOGRw4/maxresdefault.jpg" class="card-img-top" alt="Account Setup">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Modern Dairy Farm Setup</h5>
+                                    <p class="card-text">Complete guide to setting up and managing a modern dairy farm.</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal2">
+                                        <i class="fas fa-play-circle"></i> Watch Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-16x9">
+                                    <img src="https://img.youtube.com/vi/TrLTdXLHA64/maxresdefault.jpg" class="card-img-top" alt="Dashboard Overview">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Dairy Business Analytics</h5>
+                                    <p class="card-text">Understanding dairy metrics and business performance tracking.</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal3">
+                                        <i class="fas fa-play-circle"></i> Watch Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Dairy Management</h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-16x9">
+                                    <img src="https://img.youtube.com/vi/7TMtA8Eh9uE/maxresdefault.jpg" class="card-img-top" alt="Product Management">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Dairy Product Management</h5>
+                                    <p class="card-text">Learn about dairy product development and quality control.</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal4">
+                                        <i class="fas fa-play-circle"></i> Watch Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-16x9">
+                                    <img src="https://img.youtube.com/vi/7TMtA8Eh9uE/maxresdefault.jpg" class="card-img-top" alt="Inventory Control">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Inventory Management</h5>
+                                    <p class="card-text">Efficient inventory control and stock management techniques.</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal5">
+                                        <i class="fas fa-play-circle"></i> Watch Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-16x9">
+                                    <img src="https://img.youtube.com/vi/7TMtA8Eh9uE/maxresdefault.jpg" class="card-img-top" alt="Sales Tracking">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Sales & Marketing</h5>
+                                    <p class="card-text">Strategies for dairy product marketing and sales growth.</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videoModal6">
+                                        <i class="fas fa-play-circle"></i> Watch Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Video Modals -->
+<div class="modal fade" id="videoModal1" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dairy Farm Management System Overview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe 
+                        src="about:blank" 
+                        data-src="https://www.youtube.com/embed/eLKScfjYhac?si=7caYEklXYyL5PW1R" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modern Dairy Farm Setup</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe 
+                        src="about:blank" 
+                        data-src="https://www.youtube.com/embed/wDT0JmOGRw4?si=AtBB2UnJBC1ucwaz" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal3" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dairy Business Analytics</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe 
+                        src="about:blank" 
+                        data-src="https://www.youtube.com/embed/TrLTdXLHA64?si=5AinlcssuFxRShcp" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal4" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dairy Product Management</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe 
+                        src="about:blank" 
+                        data-src="https://www.youtube.com/embed/7TMtA8Eh9uE?si=OGMF7zEV5Eo9rwHU" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal5" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Inventory Management</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe src="about:blank" data-src="https://www.youtube.com/embed/7TMtA8Eh9uE" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal6" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sales & Marketing</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe src="about:blank" data-src="https://www.youtube.com/embed/7TMtA8Eh9uE" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Video modal handling with lazy loading
+    const videoModals = document.querySelectorAll('.modal');
+    videoModals.forEach(modal => {
+        modal.addEventListener('show.bs.modal', function() {
+            const iframe = this.querySelector('iframe');
+            const videoSrc = iframe.getAttribute('data-src');
+            iframe.setAttribute('src', videoSrc);
+        });
+        
+        modal.addEventListener('hide.bs.modal', function() {
+            const iframe = this.querySelector('iframe');
+            iframe.setAttribute('src', 'about:blank');
+        });
+    });
+});
+</script>
+{% endblock %} 

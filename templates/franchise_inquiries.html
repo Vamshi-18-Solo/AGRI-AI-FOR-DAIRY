@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}My Franchise Inquiries{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>My Franchise Inquiries</h1>
+            <p class="lead">Manage inquiries for your franchises</p>
+        </div>
+    </div>
+
+    {% if franchises %}
+        {% for franchise in franchises %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title mb-0">{{ franchise.name }}</h3>
+            </div>
+            <div class="card-body">
+                {% if franchise_inquiries[franchise.id] %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Investment Capacity</th>
+                                    <th>Preferred Location</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for inquiry in franchise_inquiries[franchise.id] %}
+                                <tr>
+                                    <td>{{ inquiry.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    <td>
+                                        <strong>{{ inquiry.user.username }}</strong><br>
+                                        <small>{{ inquiry.user.email }}</small><br>
+                                        <small>{{ inquiry.user.phone if inquiry.user.phone else 'No phone' }}</small>
+                                    </td>
+                                    <td>₹{{ "{:,.2f}".format(inquiry.investment_capacity) }}</td>
+                                    <td>{{ inquiry.preferred_location }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if inquiry.status == 'accepted' else 'danger' if inquiry.status == 'rejected' else 'warning' }}">
+                                            {{ inquiry.status|title }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if inquiry.status == 'pending' %}
+                                        <form action="{{ url_for('manage_inquiry', inquiry_id=inquiry.id) }}" method="POST" class="d-inline">
+                                            <input type="hidden" name="action" value="accept">
+                                            <button type="submit" class="btn btn-sm btn-success mb-1">Accept</button>
+                                        </form>
+                                        <form action="{{ url_for('manage_inquiry', inquiry_id=inquiry.id) }}" method="POST" class="d-inline">
+                                            <input type="hidden" name="action" value="reject">
+                                            <button type="submit" class="btn btn-sm btn-danger mb-1">Reject</button>
+                                        </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No inquiries received yet for this franchise.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            <h4>No Franchises Found</h4>
+            <p>You haven't created any franchise listings yet.</p>
+            <a href="{{ url_for('support') }}" class="btn btn-primary">Create Franchise Listing</a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- View Message Modal -->
+<div class="modal fade" id="viewMessageModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Inquiry Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="original-message mb-4">
+                    <h6>Original Message:</h6>
+                    <p id="inquiryMessage" class="border-bottom pb-3"></p>
+                </div>
+                <div class="responses mb-4">
+                    <h6>Responses:</h6>
+                    <div id="inquiryResponses" class="mb-3">
+                        <!-- Responses will be populated here -->
+                    </div>
+                </div>
+                <form action="" id="responseForm" method="POST">
+                    <div class="mb-3">
+                        <label for="responseMessage" class="form-label">Add Response</label>
+                        <textarea class="form-control" id="responseMessage" name="response_message" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Response</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function viewInquiry(inquiryId, message, responses) {
+    document.getElementById('inquiryMessage').textContent = message;
+    const responsesContainer = document.getElementById('inquiryResponses');
+    responsesContainer.innerHTML = '';
+    if (responses && responses.length > 0) {
+        responses.forEach(response => {
+            const responseElement = document.createElement('div');
+            responseElement.className = 'response border-bottom mb-3 pb-2';
+            responseElement.innerHTML = `
+                <div class="d-flex justify-content-between align-items-start">
+                    <strong>${response.user_name}</strong>
+                    <small class="text-muted">${new Date(response.created_at).toLocaleString()}</small>
+                </div>
+                <p class="mb-0 mt-1">${response.message}</p>
+            `;
+            responsesContainer.appendChild(responseElement);
+        });
+    } else {
+        responsesContainer.innerHTML = '<p class="text-muted">No responses yet.</p>';
+    }
+    
+    // Update form action
+    document.getElementById('responseForm').action = `/franchise/inquiry/${inquiryId}/respond`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('viewMessageModal'));
+    modal.show();
+}
+</script>
+{% endblock %} 
