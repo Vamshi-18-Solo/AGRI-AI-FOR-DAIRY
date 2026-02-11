@@ -57,10 +57,13 @@ python app.py
 python app.py
 ```
 
-2. Open your web browser and navigate to:
-```
-http://localhost:5000
-```
+2. 🚀 Live Website:
+https://agri-ai-for-dairy.onrender.com
+
+---
+
+AI-powered dairy farm management system with ML-based cow prediction, franchise management, support system, and veterinary directory.
+
 
 ## Project Structure
 
